@@ -17,6 +17,12 @@ pipeline {
                 checkout scm  // Checks out the source code from version control
             }
         }
+        stage('Install Dependencies') {
+            steps {
+                echo "Installing dependencies for package version ${PACKAGE_VERSION}..."
+                sh 'npm install'  // Run npm install to install dependencies
+            }
+        }
         stage('Build') {
             steps {
                 echo "Building package version ${PACKAGE_VERSION}..."

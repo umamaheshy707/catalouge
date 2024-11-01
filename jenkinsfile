@@ -38,7 +38,7 @@ pipeline {
     steps {
         script {
             def nexusUrl = 'http://3.106.127.199:8081/repository/catalouge'
-            def artifactPath = '/var/lib/jenkins/workspace/catalouge/catalouge.zip'
+            def artifactPath = '/var/lib/jenkins/workspace/catalouge/catalogue.zip'
 
             echo 'Uploading artifact to Nexus...'
 

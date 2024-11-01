@@ -47,7 +47,7 @@ pipeline {
                     sh '''
                         #!/bin/bash
                         set -x  # Enable debug mode
-                        curl -u ${nexusUsername}:${nexusPassword} --upload-file ${artifactPath} ${nexusUrl}
+                        curl -u ${nexususernameid}:${nexuspasswordid} --upload-file ${artifactPath} ${nexusUrl}
                 '''
                 }
             }

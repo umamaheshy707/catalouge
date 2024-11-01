@@ -27,6 +27,11 @@ pipeline {
             steps {
                 echo "Building package version ${PACKAGE_VERSION}..."
                 // Your build command here, e.g., sh 'npm install'
+                sh """
+                    ls -la
+                    zip -r catalogue.zip ./ -x ".git/*" -x "*.zip"
+                    ls -ltr
+                 """
             }
         }
     }

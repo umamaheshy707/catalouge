@@ -34,5 +34,21 @@ pipeline {
                  """
             }
         }
+        stage('Upload Artifact to Nexus') {
+            steps {
+                script {
+                    def nexusUrl = 'http://3.106.127.199:8081/#admin/repository/repositories:catalouge'
+                    def artifactPath = '/var/lib/jenkins/workspace/catalouge/catalouge.zip' // Update this path
+                    def nexusUsername = credentials('nexususernameid')
+                    def nexusPassword = credentials('nexuspasswordid')
+
+                    echo 'Uploading artifact to Nexus...'
+                    
+                    sh """
+                        curl -u ${nexusUsername}:${nexusPassword} --upload-file ${artifactPath} ${nexusUrl}
+                    """
+                }
+            }
+        }
     }
 }

@@ -54,9 +54,9 @@ pipeline {
 
                   // Upload the artifact using a subshell
                  sh """
-                     set -e  # Exit immediately if a command exits with a non-zero status
-                     curl -u ${NEXUS_USERNAME}:${NEXUS_PASSWORD} --upload-file "${artifactPath}" "${nexusUrl}"
-                    """
+                     curl -u "${NEXUS_USERNAME}:${NEXUS_PASSWORD}" -v --upload-file "${artifactPath}" "${nexusUrl}"
+                """
+
                }
 
             }

@@ -35,32 +35,33 @@ pipeline {
             }
         }
        stage('Upload Artifact to Nexus') {
-    steps {
-        script {
-            def nexusUrl = 'http://3.106.127.199:8081/repository/catalouge'
-            def artifactPath = '/var/lib/jenkins/workspace/catalouge/catalogue.zip'
+            steps {
+                script {
+                    def nexusUrl = 'http://3.106.127.199:8081/repository/catalouge'
+                    def artifactPath = '/var/lib/jenkins/workspace/catalouge/catalogue.zip'
 
-            echo 'Uploading artifact to Nexus...'
+                    echo 'Uploading artifact to Nexus...'
 
-            // Use withCredentials to bind username and password
-            withCredentials([usernamePassword(credentialsId: 'nexususernameid', passwordVariable: 'NEXUS_PASSWORD', usernameVariable: 'NEXUS_USERNAME')]) {
-                echo "Nexus username: '${NEXUS_USERNAME}'"  // Debugging output
+                   // Use withCredentials to bind username and password
+                   withCredentials([usernamePassword(credentialsId: 'nexususernameid', passwordVariable: 'NEXUS_PASSWORD', usernameVariable: 'NEXUS_USERNAME')]) {
+                   echo "Nexus username: '${NEXUS_USERNAME}'"  // Debugging output
 
-                // List contents of the workspace to check for the artifact
-                sh "ls -l /var/lib/jenkins/workspace/catalouge/"
+                   // List contents of the workspace to check for the artifact
+                   sh "ls -l /var/lib/jenkins/workspace/catalouge/"
 
-                // Check if the artifact exists
-                sh "ls -l ${artifactPath}"
+                  // Check if the artifact exists
+                  sh "ls -l ${artifactPath}"
 
-                // Upload the artifact
-                sh """
-                    #!/bin/bash
-                    curl -u "${NEXUS_USERNAME}:${NEXUS_PASSWORD}" --upload-file "${artifactPath}" "${nexusUrl}"
-                """
+                  // Upload the artifact using a subshell
+                 sh """
+                     set -e  # Exit immediately if a command exits with a non-zero status
+                     curl -u ${NEXUS_USERNAME}:${NEXUS_PASSWORD} --upload-file "${artifactPath}" "${nexusUrl}"
+                    """
+               }
+
             }
         }
     }
 }
 
-    }
 }

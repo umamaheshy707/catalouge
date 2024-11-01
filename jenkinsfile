@@ -37,7 +37,7 @@ pipeline {
        stage('Upload Artifact to Nexus') {
             steps {
                 script {
-                    def nexusUrl = 'http://3.106.127.199:8081/repository/catalouge'
+                    def nexusUrl = 'http://3.106.127.199:8081/repository/catalouge/com.roboshop/catalogue/1.0.0/catalogue.zip'
                     def artifactPath = '/var/lib/jenkins/workspace/catalouge/catalogue.zip'
 
                     echo 'Uploading artifact to Nexus...'
